@@ -3,14 +3,25 @@
 @tailwind utilities;
 
 :root {
-  --background: #f0fdf4;
+  --background: #111;
   --foreground: #14532d;
 }
 
 body {
-  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 50%, #bbf7d0 100%);
+  background-color: #1a1a1a;
   min-height: 100vh;
   color: var(--foreground);
+}
+
+/* Fixed full-screen pepper background — works on all browsers including iOS */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/pepper-hero.jpg');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
 }
 
 .animate-in {
