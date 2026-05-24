@@ -13,12 +13,14 @@ body {
   color: var(--foreground);
 }
 
-/* Fixed full-screen pepper background — works on all browsers including iOS */
+/* Fixed full-screen pepper farm background — works on all browsers including iOS */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url('/pepper-hero.jpg');
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+    url('https://images.unsplash.com/photo-yWh_xnGCV-8?auto=format&fit=crop&w=1920&q=80');
   background-size: cover;
   background-position: center;
   z-index: -1;
