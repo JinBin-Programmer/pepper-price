@@ -7,6 +7,7 @@ import PriceCard, { type ChangeInfo } from "@/components/PriceCard";
 import AdBanner from "@/components/AdBanner";
 import PriceCalculator from "@/components/PriceCalculator";
 import { useLanguage } from "@/contexts/LanguageContext";
+import type { HistoryEntry } from "@/lib/pepper-history";
 
 interface PriceEntry {
   date: string;
@@ -134,9 +135,18 @@ function Sparkline({
   );
 }
 
-export default function ClientPage({ data }: { data: PepperData }) {
+export default function ClientPage({
+  data,
+  serverHistory,
+}: {
+  data: PepperData;
+  serverHistory: HistoryEntry[];
+}) {
   const { lang } = useLanguage();
-  const [history, setHistory] = useState<PriceEntry[]>([]);
+  const [localHistory, setLocalHistory] = useState<PriceEntry[]>([]);
+
+  // Use server data if available, otherwise fall back to localStorage accumulation
+  const history: PriceEntry[] = serverHistory.length > 0 ? serverHistory : localHistory;
 
   const t = T[lang];
   const bps = data.prices.find((p) => p.code === "BPS");
@@ -160,7 +170,7 @@ export default function ClientPage({ data }: { data: PepperData }) {
 
     const trimmed = stored.slice(-30);
     localStorage.setItem("pepper_price_history", JSON.stringify(trimmed));
-    setHistory(trimmed);
+    setLocalHistory(trimmed);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -292,9 +302,10 @@ export default function ClientPage({ data }: { data: PepperData }) {
               </div>
               <Sparkline data={history} valueKey="wps" color="#16a34a" />
             </div>
-            <p className="text-xs text-gray-300 text-right">
-              {history.length} data point{history.length > 1 ? "s" : ""}
-            </p>
+            <div className="flex justify-between text-xs text-gray-300 pt-1">
+              <span>{history[0].date} — {history[history.length - 1].date}</span>
+              <span>{history.length} data point{history.length > 1 ? "s" : ""} · {serverHistory.length > 0 ? "MPB" : "local"}</span>
+            </div>
           </div>
         )}
       </div>

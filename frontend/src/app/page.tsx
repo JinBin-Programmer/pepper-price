@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getPepperData } from "@/lib/pepper";
+import { getPepperHistory } from "@/lib/pepper-history";
 import ClientPage from "@/components/ClientPage";
 
 export const revalidate = 21600;
@@ -11,6 +12,9 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const data = await getPepperData();
-  return <ClientPage data={data} />;
+  const [data, history] = await Promise.all([
+    getPepperData(),
+    getPepperHistory(),
+  ]);
+  return <ClientPage data={data} serverHistory={history} />;
 }
