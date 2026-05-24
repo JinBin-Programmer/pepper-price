@@ -42,12 +42,61 @@ export default async function HomePage() {
         </p>
       </div>
 
+      {/* Split hero banner */}
+      <div className="rounded-2xl overflow-hidden shadow-md h-44 flex animate-in">
+        {/* Left — Black Pepper */}
+        <div className="w-1/2 bg-gray-950 relative flex flex-col items-center justify-center gap-1 p-5">
+          <div
+            className="absolute inset-0 opacity-25"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle, #6b7280 1.2px, transparent 1.2px)",
+              backgroundSize: "14px 14px",
+            }}
+          />
+          <span className="text-5xl relative">🫙</span>
+          <p className="relative text-white font-extrabold text-sm tracking-wide">
+            Black Pepper
+          </p>
+          <p className="relative text-gray-400 text-xs font-medium">
+            BPS Sarawak
+          </p>
+        </div>
+
+        {/* Divider */}
+        <div className="w-px bg-gradient-to-b from-gray-700 via-gray-400 to-gray-200 flex-shrink-0" />
+
+        {/* Right — White Pepper */}
+        <div className="w-1/2 bg-white relative flex flex-col items-center justify-center gap-1 p-5">
+          <div
+            className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle, #9ca3af 1.2px, transparent 1.2px)",
+              backgroundSize: "14px 14px",
+            }}
+          />
+          <span className="text-5xl relative">🌾</span>
+          <p className="relative text-gray-800 font-extrabold text-sm tracking-wide">
+            White Pepper
+          </p>
+          <p className="relative text-gray-400 text-xs font-medium">
+            WPS Sarawak
+          </p>
+        </div>
+      </div>
+
       {/* Price Cards */}
       <div className="grid sm:grid-cols-2 gap-4 animate-in delay-1">
         {data.prices.map((p, i) => (
           <PriceCard key={p.code} price={p} index={i} />
         ))}
       </div>
+
+      {/* Last updated — below price cards */}
+      <p className="text-center text-xs text-gray-400">
+        Last updated: {formatDate(data.last_updated)} (MYT)
+      </p>
 
       {/* Ad */}
       <AdBanner slot="1111111111" format="horizontal" className="min-h-[90px] rounded-xl overflow-hidden" />
@@ -132,7 +181,6 @@ export default async function HomePage() {
             Malaysia Pepper Board (mpb.gov.my)
           </a>
         </p>
-        <p>Last updated: {formatDate(data.last_updated)} (MYT)</p>
         <p className="text-gray-300">Prices are for informational reference only</p>
       </div>
 
