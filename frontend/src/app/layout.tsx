@@ -12,10 +12,18 @@ export const metadata: Metadata = {
   description:
     "Daily pepper prices in Malaysia from the Malaysia Pepper Board (MPB). Track Black Pepper Sarawak (BPS) and White Pepper Sarawak (WPS) rates in RM/tonne and RM/kg.",
   keywords: ["pepper price Malaysia", "harga lada Malaysia", "MPB price", "black pepper price", "white pepper price", "Sarawak pepper"],
+  icons: {
+    icon: "/favicon.svg",
+  },
   openGraph: {
     type: "website",
     locale: "en_MY",
     siteName: "Pepper Price Malaysia",
+    images: [{ url: "/pepper-hero.jpg", width: 800, height: 600, alt: "Pepper Price Malaysia" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/pepper-hero.jpg"],
   },
 };
 
