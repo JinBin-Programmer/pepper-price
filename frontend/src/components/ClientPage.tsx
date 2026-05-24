@@ -6,6 +6,7 @@ import type { PepperData } from "@/lib/pepper";
 import PriceCard, { type ChangeInfo } from "@/components/PriceCard";
 import AdBanner from "@/components/AdBanner";
 import PriceCalculator from "@/components/PriceCalculator";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface PriceEntry {
   date: string;
@@ -13,7 +14,7 @@ interface PriceEntry {
   wps: number;
 }
 
-type Lang = "en" | "bm";
+type Lang = "bm" | "en";
 
 const T = {
   en: {
@@ -134,7 +135,7 @@ function Sparkline({
 }
 
 export default function ClientPage({ data }: { data: PepperData }) {
-  const [lang, setLang] = useState<Lang>("en");
+  const { lang } = useLanguage();
   const [history, setHistory] = useState<PriceEntry[]>([]);
 
   const t = T[lang];
@@ -142,9 +143,6 @@ export default function ClientPage({ data }: { data: PepperData }) {
   const wps = data.prices.find((p) => p.code === "WPS");
 
   useEffect(() => {
-    const savedLang = localStorage.getItem("pepper_lang") as Lang | null;
-    if (savedLang === "en" || savedLang === "bm") setLang(savedLang);
-
     let stored: PriceEntry[] = [];
     try {
       stored = JSON.parse(localStorage.getItem("pepper_price_history") || "[]");
@@ -165,12 +163,6 @@ export default function ClientPage({ data }: { data: PepperData }) {
     setHistory(trimmed);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  function toggleLang() {
-    const next: Lang = lang === "en" ? "bm" : "en";
-    setLang(next);
-    localStorage.setItem("pepper_lang", next);
-  }
 
   function getChange(code: "bps" | "wps", current: number): ChangeInfo | null {
     if (history.length < 2) return null;
@@ -194,16 +186,6 @@ export default function ClientPage({ data }: { data: PepperData }) {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8 space-y-6">
-
-      {/* Language toggle */}
-      <div className="flex justify-end">
-        <button
-          onClick={toggleLang}
-          className="text-xs font-semibold px-3 py-1.5 rounded-full border border-green-200 bg-white/80 text-green-700 hover:bg-green-50 transition-colors"
-        >
-          {lang === "en" ? "🇲🇾 Bahasa Malaysia" : "🇬🇧 English"}
-        </button>
-      </div>
 
       {/* Hero — image background */}
       <div

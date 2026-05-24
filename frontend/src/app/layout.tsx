@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Script from "next/script";
 import Link from "next/link";
+import { LanguageProvider } from "@/contexts/LanguageContext";
+import LanguageToggle from "@/components/LanguageToggle";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://pepper.merquri.com"),
@@ -29,7 +31,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="ms">
       <head>
         <Script
           async
@@ -39,38 +41,50 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body className="min-h-screen flex flex-col">
-        {/* Navbar */}
-        <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-green-100 shadow-sm">
-          <div className="max-w-3xl mx-auto px-4 py-3 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 font-bold text-green-800 text-lg">
-              <span className="text-2xl">🌿</span>
-              <span>Pepper Price MY</span>
-            </Link>
-            <div className="flex items-center gap-4 text-sm font-medium text-green-700">
-              <Link href="/" className="hover:text-green-900 transition-colors">Prices</Link>
-              <Link href="/about" className="hover:text-green-900 transition-colors">About</Link>
-              <Link href="/privacy-policy" className="hover:text-green-900 transition-colors">Privacy</Link>
+        <LanguageProvider>
+          {/* Navbar */}
+          <nav className="sticky top-0 z-50 bg-black/70 backdrop-blur border-b border-white/10 shadow-sm">
+            <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
+              <Link href="/" className="flex items-center gap-2 font-bold text-white text-lg">
+                <span className="text-2xl">🌿</span>
+                <div>
+                  <div className="leading-none">Pepper Price MY</div>
+                  <div className="text-[10px] text-white/40 font-normal leading-none">Malaysia Pepper Price</div>
+                </div>
+              </Link>
+              <div className="flex items-center gap-3">
+                <div className="hidden sm:flex items-center gap-4 text-sm font-medium text-white/60">
+                  <Link href="/" className="hover:text-white transition-colors">Prices</Link>
+                  <Link href="/about" className="hover:text-white transition-colors">About</Link>
+                </div>
+                <LanguageToggle />
+              </div>
             </div>
-          </div>
-        </nav>
+          </nav>
 
-        {/* Main content */}
-        <main className="flex-1">
-          {children}
-        </main>
+          {/* Main content */}
+          <main className="flex-1">
+            {children}
+          </main>
 
-        {/* Footer */}
-        <footer className="border-t border-green-100 bg-white/60 mt-10 py-6 text-center text-xs text-gray-400 space-y-1">
-          <p>Pepper prices sourced from <a href="https://www.mpb.gov.my" target="_blank" rel="noopener noreferrer" className="underline hover:text-green-600">Malaysia Pepper Board (MPB)</a></p>
-          <div className="flex flex-wrap justify-center gap-3 mt-2">
-            <Link href="/about" className="hover:text-green-600">About</Link>
-            <span>·</span>
-            <Link href="/privacy-policy" className="hover:text-green-600">Privacy Policy</Link>
-            <span>·</span>
-            <Link href="/terms" className="hover:text-green-600">Terms of Service</Link>
-          </div>
-          <p className="mt-2">© {new Date().getFullYear()} Pepper Price Malaysia · Informational use only</p>
-        </footer>
+          {/* Footer */}
+          <footer className="border-t border-white/10 bg-black/60 py-6 text-center text-xs text-white/30 space-y-1">
+            <p>
+              Harga lada dari / Pepper prices from{" "}
+              <a href="https://www.mpb.gov.my" target="_blank" rel="noopener noreferrer" className="underline hover:text-white/60">
+                Malaysia Pepper Board (MPB)
+              </a>
+            </p>
+            <div className="flex flex-wrap justify-center gap-3 mt-2">
+              <Link href="/about" className="hover:text-white">Tentang / About</Link>
+              <span>·</span>
+              <Link href="/privacy-policy" className="hover:text-white">Dasar Privasi / Privacy</Link>
+              <span>·</span>
+              <Link href="/terms" className="hover:text-white">Terma / Terms</Link>
+            </div>
+            <p className="mt-2">© {new Date().getFullYear()} Pepper Price Malaysia · Untuk rujukan sahaja / For reference only</p>
+          </footer>
+        </LanguageProvider>
       </body>
     </html>
   );
