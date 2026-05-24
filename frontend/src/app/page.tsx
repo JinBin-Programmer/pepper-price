@@ -28,61 +28,61 @@ export default async function HomePage() {
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8 space-y-6">
-      {/* Hero */}
-      <div className="animate-in text-center space-y-2">
-        <div className="inline-flex items-center gap-2 bg-green-100 text-green-800 text-xs font-semibold px-3 py-1 rounded-full border border-green-200">
-          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse inline-block" />
+      {/* Hero — image background */}
+      <div
+        className="animate-in rounded-2xl overflow-hidden shadow-lg relative h-44 flex flex-col items-center justify-center gap-2 text-center"
+        style={{
+          backgroundImage: "url(/pepper-hero.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/55" />
+        <div className="relative inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1 rounded-full border border-white/30">
+          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse inline-block" />
           {data.is_fallback ? "Showing reference prices" : "Live from MPB"}
         </div>
-        <h1 className="text-3xl font-extrabold text-gray-800">
+        <h1 className="relative text-3xl font-extrabold text-white drop-shadow">
           Pepper Price Malaysia
         </h1>
-        <p className="text-gray-500 text-sm">
+        <p className="relative text-white/70 text-sm">
           Daily prices from the Malaysia Pepper Board (MPB)
         </p>
       </div>
 
-      {/* Split hero banner */}
+      {/* Split image banner — Black vs White */}
       <div className="rounded-2xl overflow-hidden shadow-md h-44 flex animate-in">
         {/* Left — Black Pepper */}
-        <div className="w-1/2 bg-gray-950 relative flex flex-col items-center justify-center gap-1 p-5">
-          <div
-            className="absolute inset-0 opacity-25"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle, #6b7280 1.2px, transparent 1.2px)",
-              backgroundSize: "14px 14px",
-            }}
-          />
-          <span className="text-5xl relative">🫙</span>
-          <p className="relative text-white font-extrabold text-sm tracking-wide">
-            Black Pepper
-          </p>
-          <p className="relative text-gray-400 text-xs font-medium">
-            BPS Sarawak
-          </p>
+        <div
+          className="w-1/2 relative flex flex-col items-end justify-end p-4"
+          style={{
+            backgroundImage: "url(/pepper-black.jpg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+          <div className="relative text-right">
+            <p className="text-white font-extrabold text-sm leading-tight">Black Pepper</p>
+            <p className="text-gray-300 text-xs">BPS Sarawak</p>
+          </div>
         </div>
 
-        {/* Divider */}
-        <div className="w-px bg-gradient-to-b from-gray-700 via-gray-400 to-gray-200 flex-shrink-0" />
-
         {/* Right — White Pepper */}
-        <div className="w-1/2 bg-white relative flex flex-col items-center justify-center gap-1 p-5">
-          <div
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle, #9ca3af 1.2px, transparent 1.2px)",
-              backgroundSize: "14px 14px",
-            }}
-          />
-          <span className="text-5xl relative">🌾</span>
-          <p className="relative text-gray-800 font-extrabold text-sm tracking-wide">
-            White Pepper
-          </p>
-          <p className="relative text-gray-400 text-xs font-medium">
-            WPS Sarawak
-          </p>
+        <div
+          className="w-1/2 relative flex flex-col items-start justify-end p-4"
+          style={{
+            backgroundImage: "url(/pepper-white.jpg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-t from-white/80 via-white/20 to-transparent" />
+          <div className="relative text-left">
+            <p className="text-gray-900 font-extrabold text-sm leading-tight">White Pepper</p>
+            <p className="text-gray-600 text-xs">WPS Sarawak</p>
+          </div>
         </div>
       </div>
 
